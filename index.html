@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta id="themeColorMeta" name="theme-color" content="#f5f3f7" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>PHARMASSENTIALS — Product & Expiry Hub</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'media',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --spring-ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --ios-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      /* Light Mode iOS 27 Translucent Liquid Glass Tokens */
+      --bg-base: #f4f1f7;
+      --bg-glow-1: rgba(212, 77, 120, 0.2);
+      --bg-glow-2: rgba(150, 201, 45, 0.16);
+      --bg-glow-3: rgba(124, 58, 237, 0.12);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --glass-bg: rgba(255, 255, 255, 0.48);
+      --glass-subtle-bg: rgba(255, 255, 255, 0.56);
+      --glass-border: rgba(255, 255, 255, 0.72);
+      --glass-shadow: 0 18px 42px -10px rgba(30, 20, 38, 0.14), 0 4px 14px -2px rgba(30, 20, 38, 0.05);
+      --glass-inset: inset 0 1.5px 1.5px rgba(255, 255, 255, 0.85), inset 0 -1px 2px rgba(212, 77, 120, 0.05);
+      --input-bg: rgba(255, 255, 255, 0.68);
+      --input-border: rgba(203, 213, 225, 0.65);
+      --pill-idle-bg: rgba(255, 255, 255, 0.6);
+      --pill-idle-text: #475569;
+      --pill-idle-border: rgba(226, 232, 240, 0.75);
+      --pill-active-bg: #0f172a;
+      --pill-active-text: #ffffff;
+      --nav-text-idle: #64748b;
+      --nav-text-active: #0f172a;
+      --divider-color: rgba(226, 232, 240, 0.6);
+      --surface-soft: rgba(255, 255, 255, 0.45);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-base: #0a0c12;
+        --bg-glow-1: rgba(212, 77, 120, 0.28);
+        --bg-glow-2: rgba(150, 201, 45, 0.18);
+        --bg-glow-3: rgba(99, 102, 241, 0.16);
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --glass-bg: rgba(24, 26, 36, 0.46);
+        --glass-subtle-bg: rgba(28, 31, 43, 0.52);
+        --glass-border: rgba(255, 255, 255, 0.18);
+        --glass-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.52), 0 4px 16px -2px rgba(0, 0, 0, 0.32);
+        --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.24), inset 0 -1px 2px rgba(212, 77, 120, 0.16);
+        --input-bg: rgba(15, 17, 25, 0.64);
+        --input-border: rgba(255, 255, 255, 0.18);
+        --pill-idle-bg: rgba(255, 255, 255, 0.08);
+        --pill-idle-text: #cbd5e1;
+        --pill-idle-border: rgba(255, 255, 255, 0.14);
+        --pill-active-bg: #f8fafc;
+        --pill-active-text: #0f172a;
+        --nav-text-idle: #94a3b8;
+        --nav-text-active: #ffffff;
+        --divider-color: rgba(255, 255, 255, 0.12);
+        --surface-soft: rgba(255, 255, 255, 0.09);
+      }
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 82% 8%, var(--bg-glow-1), transparent 46%),
+        radial-gradient(circle at 14% 26%, var(--bg-glow-2), transparent 48%),
+        radial-gradient(circle at 50% 90%, var(--bg-glow-3), transparent 52%),
+        var(--bg-base);
+      color: var(--text-primary);
+      overscroll-behavior-y: contain;
+      transition: background-color 0.35s ease, color 0.3s ease;
+    }
+
+    /* iOS 27 Liquid Glass Surface - Translucent Specular Refraction */
+    .liquid-glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(40px) saturate(220%);
+      -webkit-backdrop-filter: blur(40px) saturate(220%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow), var(--glass-inset);
+    }
+
+    .liquid-glass-subtle {
+      background: var(--glass-subtle-bg);
+      backdrop-filter: blur(22px) saturate(185%);
+      -webkit-backdrop-filter: blur(22px) saturate(185%);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 6px 20px -6px rgba(10, 12, 22, 0.1), var(--glass-inset);
+    }
+
+    .product-card-fast {
+      background: var(--glass-subtle-bg);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 14px -4px rgba(10, 12, 22, 0.08);
+      contain: content;
+      content-visibility: auto;
+      contain-intrinsic-size: 76px;
+    }
+
+    .adaptive-input {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-primary);
+    }
+
+    .adaptive-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .adaptive-text-primary { color: var(--text-primary); }
+    .adaptive-text-secondary { color: var(--text-secondary); }
+    .adaptive-text-muted { color: var(--text-muted); }
+    .adaptive-divider { border-color: var(--divider-color); }
+    .adaptive-soft-btn {
+      background: var(--surface-soft);
+      color: var(--text-secondary);
+      border: 1px solid var(--glass-border);
+    }
+
+    /* Distinct Dark-Plum / Magenta Accent Header Card for Product & Expiry Hub */
+    .expiry-header-glass {
+      background: linear-gradient(135deg, rgba(42, 20, 42, 0.72) 0%, rgba(74, 28, 56, 0.7) 58%, rgba(28, 32, 46, 0.74) 100%);
+      backdrop-filter: blur(32px) saturate(210%);
+      -webkit-backdrop-filter: blur(32px) saturate(210%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow:
+        0 12px 30px -8px rgba(42, 18, 36, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    }
+
+    /* Sliding Glass Pill Indicator inside Bottom Dock */
+    .nav-pill-indicator {
+      background: linear-gradient(135deg, rgba(212, 77, 120, 0.26), rgba(150, 201, 45, 0.22));
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 14px rgba(212, 77, 120, 0.22), var(--glass-inset);
+      transition: transform 0.42s var(--ios-bounce);
+    }
+
+    /* Smooth View Transitions */
+    .view-panel.hidden-view {
+      display: none;
+    }
+    .view-panel.entering {
+      animation: panelSpringIn 0.34s var(--spring-ease) forwards;
+    }
+
+    @keyframes panelSpringIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Modal Smooth Entrance */
+    .modal-sheet-enter {
+      animation: modalSpringUp 0.34s var(--spring-ease) forwards;
+    }
+
+    @keyframes modalSpringUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .ios-press {
+      transition: transform 0.2s var(--ios-bounce), background-color 0.2s ease, opacity 0.2s ease;
+    }
+    .ios-press:active {
+      transform: scale(0.95);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    #bottomNavDock {
+      position: fixed;
+      bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      z-index: 60;
+      width: 92%;
+      max-width: 408px;
+    }
+
+    #floatingBottomSearchDock {
+      position: fixed;
+      bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      z-index: 55;
+      width: 92%;
+      max-width: 408px;
+      transition: opacity 0.25s var(--spring-ease), transform 0.28s var(--spring-ease);
+    }
+  </style>
+</head>
+<body class="font-sans min-h-screen flex justify-center antialiased selection:bg-[#D44D78]/20">
+
+  <!-- Phone-Size Container -->
+  <div class="w-full max-w-[440px] min-h-screen flex flex-col relative bg-transparent sm:shadow-2xl sm:border-x sm:border-white/25">
+
+    <!-- Distinct Top Header (Deep Plum/Rose Liquid Glass so easily distinguished from Ordering App) -->
+    <header id="mainHeader" class="sticky top-0 z-30 transition-transform duration-300 ease-out will-change-transform px-3.5 pt-3 pb-2">
+      <div class="expiry-header-glass rounded-3xl px-3.5 py-2.5 flex items-center justify-between gap-2.5 text-white">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <!-- Brand Emblem with Calendar/Edit Badge -->
+          <div class="relative w-10 h-10 rounded-2xl bg-white shadow-xs flex items-center justify-center shrink-0 p-1">
+            <svg class="w-full h-full" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M43 34C43 22.5 50.6 15 60 15C69.4 15 77 22.5 77 34" stroke="#96C92D" stroke-width="7.5" stroke-linecap="round" />
+              <path d="M31 38C31.5 35.2 33.9 33 36.8 33H83.2C86.1 33 88.5 35.2 89 38L97.5 96C98.3 101.5 94 106.5 88.4 106.5H31.6C26 106.5 21.7 101.5 22.5 96L31 38Z" fill="#96C92D" />
+              <circle cx="56" cy="48.5" r="2.7" fill="#D44D78" />
+              <circle cx="49" cy="55.5" r="2.1" fill="#D44D78" />
+              <circle cx="66.5" cy="52.5" r="1.7" fill="#D44D78" />
+              <path d="M43 87C42.5 68 56 56 76 52C79 71 67 86 46 88.5C44.5 88.7 43 88.1 43 87Z" fill="#D44D78" />
+              <path d="M44.5 86C52 77 60 69 70 61" stroke="#8EC326" stroke-width="2.1" stroke-linecap="round" />
+            </svg>
+            <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#D44D78] border-2 border-white flex items-center justify-center">
+              <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </span>
+          </div>
+
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <h1 class="text-sm font-extrabold tracking-tight text-white truncate">
+                PHARMA<span class="text-[#96C92D]">SSENTIALS</span>
+              </h1>
+              <span class="px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider rounded-md bg-[#D44D78] text-white shrink-0">
+                EDIT HUB
+              </span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[11px] text-rose-100/80">
+              <span id="syncStatusDot" class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+              <span id="syncStatusText" class="truncate">Product &amp; Expiry Hub • Ready</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Refresh / Sync Pill -->
+        <button
+          id="syncRefreshBtn"
+          type="button"
+          class="ios-press px-3 py-2 rounded-2xl bg-white/15 hover:bg-white/25 text-white text-xs font-semibold flex items-center gap-1.5 border border-white/20 shrink-0"
+        >
+          <svg id="syncIcon" class="w-3.5 h-3.5 text-[#96C92D]" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span>Sync</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Non-blocking Floating Pill Toast -->
+    <div id="toastContainer" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 w-full max-w-[380px] px-4 pointer-events-none"></div>
+
+    <!-- Main Scrollable Content (Padded at bottom for Floating Search + Glass Nav) -->
+    <main class="flex-1 px-3.5 pt-1 pb-44 space-y-3.5 flex flex-col">
+
+      <!-- ========================================================= -->
+      <!-- TAB 1: MINIMALIST PRODUCT & EXPIRY EDITING HUB            -->
+      <!-- ========================================================= -->
+      <section id="viewEditExpiry" class="view-panel flex-1 flex flex-col space-y-3">
+        <!-- Warning Banner if Web App URL is not yet configured -->
+        <div id="setupReminderBanner" class="hidden rounded-2xl p-3 bg-amber-50/90 backdrop-blur-md border border-amber-200 text-amber-900 text-xs flex items-center justify-between gap-2">
+          <span>I-save muna ang <strong>Apps Script URL</strong> sa Sheet Sync tab para mag-sync sa Google Sheet.</span>
+          <button type="button" id="goToSetupBannerBtn" class="ios-press px-2.5 py-1.5 rounded-xl bg-amber-900 text-white font-bold shrink-0">
+            Setup
+          </button>
+        </div>
+
+        <!-- Minimalist iOS 27 Glass Hub Controls Card -->
+        <div id="spotlightSearchWrapper" class="transition-all duration-500 ease-out my-auto pt-4 pb-2">
+          <div class="liquid-glass rounded-[32px] p-4 space-y-3">
+            <div class="flex items-center justify-between px-1">
+              <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#D44D78]">
+                  Product &amp; Expiry Hub
+                </span>
+                <h2 class="text-base font-extrabold adaptive-text-primary tracking-tight">
+                  Edit Name, Category &amp; Expiry
+                </h2>
+              </div>
+              <span id="totalCatalogPill" class="px-2.5 py-1 rounded-full text-[11px] font-bold adaptive-soft-btn tabular-nums">
+                0 items
+              </span>
+            </div>
+
+            <p class="text-xs adaptive-text-muted px-1">
+              Gamitin ang search bar sa ibaba para maghanap ng produkto, o i-tap ang mga shortcut dito:
+            </p>
+
+            <!-- Minimalist Toggle Button: Show / Hide Full Product List -->
+            <div class="flex items-center justify-between gap-2 pt-0.5">
+              <button
+                id="toggleBrowseAllBtn"
+                type="button"
+                class="ios-press flex-1 py-2.5 px-3.5 rounded-2xl adaptive-soft-btn font-bold text-xs flex items-center justify-center gap-2"
+              >
+                <svg id="toggleBrowseIcon" class="w-4 h-4 text-[#D44D78] transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <span id="toggleBrowseText">Show All Products List</span>
+              </button>
+
+              <button
+                id="quickBlankExpiryBtn"
+                type="button"
+                class="ios-press py-2.5 px-3 rounded-2xl bg-[#D44D78]/15 hover:bg-[#D44D78]/25 text-[#D44D78] font-bold text-xs border border-[#D44D78]/30 shrink-0"
+              >
+                Blank Expiry
+              </button>
+            </div>
+
+            <!-- Expandable Filter Drawer (Visible only when browsing list or searching) -->
+            <div id="browseFiltersDrawer" class="hidden space-y-2 pt-2 border-t adaptive-divider">
+              <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
+                <button type="button" data-filter="ALL" class="status-filter-btn ios-press px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap bg-slate-900 text-white dark:bg-white dark:text-slate-900">
+                  All
+                </button>
+                <button type="button" data-filter="NO_EXPIRY" class="status-filter-btn ios-press px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap adaptive-soft-btn">
+                  Blank Expiry
+                </button>
+                <button type="button" data-filter="HAS_EXPIRY" class="status-filter-btn ios-press px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap adaptive-soft-btn">
+                  With Expiry
+                </button>
+              </div>
+              <div id="categoryPills" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Header & Product Cards (Hidden on initial minimalist load until user searches or taps Show All Products List) -->
+        <div id="resultsContainerWrapper" class="hidden space-y-2.5">
+          <div class="flex items-center justify-between px-1.5 text-[11px] adaptive-text-muted">
+            <span id="listCountText" class="font-semibold">0 items found</span>
+            <button
+              id="collapseListBtn"
+              type="button"
+              class="font-bold text-[#D44D78] hover:underline"
+            >
+              Hide List
+            </button>
+          </div>
+
+          <div id="itemsListContainer" class="space-y-2"></div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- TAB 2: ADD NEW PRODUCT / MEDICINE TO GOOGLE SHEET         -->
+      <!-- ========================================================= -->
+      <section id="viewAddProduct" class="view-panel hidden-view space-y-3">
+        <div class="liquid-glass rounded-[30px] p-4 space-y-3.5">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[#96C92D]">Direct Sheet Entry</span>
+            <h2 class="text-base font-extrabold adaptive-text-primary">Add New Product / Gamot</h2>
+            <p class="text-xs adaptive-text-muted">Kusang madadagdag sa <strong>MAIN SHEET</strong> ng Google Sheet ninyo.</p>
+          </div>
+
+          <form id="addNewProductForm" class="space-y-3">
+            <div>
+              <label class="block text-xs font-semibold adaptive-text-secondary mb-1">Medicine / Product Name *</label>
+              <input
+                id="newProdName"
+                type="text"
+                required
+                placeholder="e.g., BIOGESIC 500MG TABLET"
+                class="adaptive-input w-full px-3.5 py-2.5 text-sm font-semibold rounded-2xl focus:border-[#D44D78] outline-none"
+              />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold adaptive-text-secondary mb-1">Category *</label>
+              <select
+                id="newProdCategory"
+                class="adaptive-input w-full px-3.5 py-2.5 text-sm font-semibold rounded-2xl focus:border-[#D44D78] outline-none"
+              >
+                <option value="Milks">Milks</option>
+                <option value="Drinks">Drinks</option>
+                <option value="Unilab">Unilab</option>
+                <option value="Antibiotics">Antibiotics</option>
+                <option value="Diapers">Diapers</option>
+                <option value="Herbals">Herbals</option>
+                <option value="Coffees">Coffees</option>
+                <option value="Others" selected>Others</option>
+              </select>
+            </div>
+
+            <div class="space-y-2">
+              <label class="block text-xs font-semibold adaptive-text-secondary">Expiration Date (Optional)</label>
+              <div class="grid grid-cols-2 gap-2">
+                <select
+                  id="newProdMonth"
+                  class="adaptive-input px-3 py-2.5 text-sm rounded-2xl focus:border-[#D44D78] outline-none"
+                >
+                  <option value="">Month (Optional)</option>
+                  <option value="Jan">Jan</option>
+                  <option value="Feb">Feb</option>
+                  <option value="Mar">Mar</option>
+                  <option value="Apr">Apr</option>
+                  <option value="May">May</option>
+                  <option value="Jun">Jun</option>
+                  <option value="Jul">Jul</option>
+                  <option value="Aug">Aug</option>
+                  <option value="Sep">Sep</option>
+                  <option value="Oct">Oct</option>
+                  <option value="Nov">Nov</option>
+                  <option value="Dec">Dec</option>
+                </select>
+
+                <select
+                  id="newProdYear"
+                  class="adaptive-input px-3 py-2.5 text-sm rounded-2xl focus:border-[#D44D78] outline-none"
+                >
+                  <option value="">Year (Optional)</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                  <option value="2029">2029</option>
+                  <option value="2030">2030</option>
+                  <option value="2031">2031</option>
+                </select>
+              </div>
+              <input
+                id="newProdCustomExpiry"
+                type="text"
+                placeholder="Or type custom date (e.g., Dec 2028)"
+                class="adaptive-input w-full px-3.5 py-2 text-xs rounded-2xl focus:border-[#D44D78] outline-none"
+              />
+            </div>
+
+            <button
+              id="submitNewProdBtn"
+              type="submit"
+              class="ios-press w-full py-3.5 rounded-2xl bg-[#D44D78] text-white font-extrabold text-sm shadow-md flex items-center justify-center gap-2"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              <span>Add Product &amp; Sync to Google Sheet</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- TAB 3: TWO-WAY GOOGLE SHEET SYNC SETUP                    -->
+      <!-- ========================================================= -->
+      <section id="viewSetup" class="view-panel hidden-view space-y-3">
+        <div class="liquid-glass rounded-[30px] p-4 space-y-3">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[#D44D78]">Two-Way Live Sync</span>
+            <h2 class="text-base font-extrabold adaptive-text-primary">Google Apps Script Setup</h2>
+            <p class="text-xs adaptive-text-muted mt-0.5">
+              Para ma-edit ang product name, category, at expiration date directly sa <strong>MAIN SHEET</strong>, i-paste ang script sa ibaba sa <strong>Extensions &gt; Apps Script</strong> at i-deploy bilang Web App (<em>Anyone</em>).
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <label for="scriptUrlInput" class="block text-xs font-bold adaptive-text-secondary">
+              Apps Script Web App URL (/exec)
+            </label>
+            <input
+              id="scriptUrlInput"
+              type="url"
+              placeholder="https://script.google.com/macros/s/.../exec"
+              class="adaptive-input w-full px-3.5 py-2.5 text-xs rounded-2xl focus:border-[#D44D78] outline-none"
+            />
+            <div class="flex gap-2">
+              <button
+                id="saveScriptUrlBtn"
+                type="button"
+                class="ios-press flex-1 py-2.5 text-xs font-extrabold rounded-2xl bg-[#96C92D] text-slate-950"
+              >
+                Save &amp; Connect
+              </button>
+              <button
+                id="copyScriptCodeBtn"
+                type="button"
+                class="ios-press px-3.5 py-2.5 text-xs font-bold rounded-2xl adaptive-soft-btn"
+              >
+                Copy Script
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden Apps Script Source Code -->
+        <pre id="appsScriptSource" class="hidden">function doGet(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("MAIN SHEET");
+  var lastRow = sheet.getLastRow();
+  var items = [];
+
+  if (lastRow >= 4) {
+    var values = sheet.getRange(4, 9, lastRow - 3, 3).getValues();
+    for (var i = 0; i < values.length; i++) {
+      var category = values[i][0] ? values[i][0].toString().trim() : "Others";
+      var name = values[i][1] ? values[i][1].toString().trim() : "";
+      var expiryRaw = values[i][2];
+
+      if (name !== "") {
+        var expiryStr = "";
+        if (expiryRaw instanceof Date) {
+          expiryStr = Utilities.formatDate(expiryRaw, Session.getScriptTimeZone(), "MMM yyyy");
+        } else if (expiryRaw) {
+          expiryStr = expiryRaw.toString().trim();
+        }
+        items.push({
+          row: i + 4,
+          category: category || "Others",
+          name: name,
+          expiry: expiryStr
+        });
+      }
+    }
+  }
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: "ok", items: items }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  try {
+    var payload = JSON.parse(e.postData.contents);
+    var action = payload.action || "";
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName("MAIN SHEET");
+
+    if (action === "updateProduct" || action === "updateExpiry") {
+      var originalName = (payload.originalName || payload.name || "").toString().trim().toUpperCase();
+      var newCategory = payload.category !== undefined ? payload.category.toString().trim() : null;
+      var newName = payload.name !== undefined ? payload.name.toString().trim() : null;
+      var newExpiry = (payload.expiry || "").toString().trim();
+      var rowNum = parseInt(payload.row, 10);
+      var updated = false;
+
+      if (rowNum >= 4) {
+        var rowCellName = sheet.getRange(rowNum, 10).getValue().toString().trim().toUpperCase();
+        if (rowCellName === originalName) {
+          if (newCategory !== null && newCategory !== "") sheet.getRange(rowNum, 9).setValue(newCategory);
+          if (newName !== null && newName !== "") sheet.getRange(rowNum, 10).setValue(newName);
+          sheet.getRange(rowNum, 11).setValue(newExpiry);
+          updated = true;
+        }
+      }
+
+      if (!updated) {
+        var lastRow = sheet.getLastRow();
+        if (lastRow >= 4) {
+          var names = sheet.getRange(4, 10, lastRow - 3, 1).getValues();
+          for (var i = 0; i < names.length; i++) {
+            if (names[i][0].toString().trim().toUpperCase() === originalName) {
+              var targetRow = i + 4;
+              if (newCategory !== null && newCategory !== "") sheet.getRange(targetRow, 9).setValue(newCategory);
+              if (newName !== null && newName !== "") sheet.getRange(targetRow, 10).setValue(newName);
+              sheet.getRange(targetRow, 11).setValue(newExpiry);
+              updated = true;
+              break;
+            }
+          }
+        }
+      }
+
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: "ok", updated: updated }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    if (action === "addProduct") {
+      var cat = (payload.category || "Others").toString().trim();
+      var prodName = (payload.name || "").toString().trim();
+      var prodExpiry = (payload.expiry || "").toString().trim();
+
+      if (!prodName) throw new Error("Product name is required.");
+
+      var lastRowAll = sheet.getLastRow();
+      var insertRow = 4;
+      if (lastRowAll >= 4) {
+        var colJ = sheet.getRange(4, 10, lastRowAll - 3, 1).getValues();
+        for (var r = colJ.length - 1; r >= 0; r--) {
+          if (colJ[r][0].toString().trim() !== "") {
+            insertRow = r + 5;
+            break;
+          }
+        }
+      }
+
+      sheet.getRange(insertRow, 9, 1, 3).setValues([[cat, prodName, prodExpiry]]);
+
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: "ok", row: insertRow }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "error", message: "Unknown action" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "error", message: err.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}</pre>
+      </section>
+    </main>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- EDIT PRODUCT & EXPIRATION MODAL (iOS 27 Liquid Glass)               -->
+  <!-- =================================================================== -->
+  <div id="editExpiryModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/55 backdrop-blur-md p-4 overflow-y-auto transition-opacity duration-200">
+    <div id="editExpiryModalCard" class="modal-sheet-enter liquid-glass w-full max-w-[408px] rounded-[34px] p-5 space-y-3.5 shadow-2xl my-auto">
+      <div class="flex items-start justify-between gap-2">
+        <div class="min-w-0">
+          <span class="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded-lg bg-[#D44D78] text-white">
+            Edit Product Details
+          </span>
+          <p id="modalCurrentExpiry" class="text-xs adaptive-text-muted mt-1.5">
+            Current Expiry: None
+          </p>
+        </div>
+        <button id="closeModalBtn" type="button" class="ios-press p-2 rounded-full adaptive-soft-btn shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Editable Product Name -->
+      <div>
+        <label for="modalProductNameInput" class="block text-xs font-bold adaptive-text-secondary mb-1">
+          Product / Medicine Name:
+        </label>
+        <input
+          id="modalProductNameInput"
+          type="text"
+          placeholder="Enter exact product name"
+          class="adaptive-input w-full px-3.5 py-2.5 text-sm font-extrabold rounded-2xl focus:border-[#D44D78] outline-none"
+        />
+      </div>
+
+      <!-- Editable Category -->
+      <div>
+        <label for="modalCategorySelect" class="block text-xs font-bold adaptive-text-secondary mb-1">
+          Category:
+        </label>
+        <select
+          id="modalCategorySelect"
+          class="adaptive-input w-full px-3.5 py-2.5 text-sm font-bold rounded-2xl focus:border-[#D44D78] outline-none"
+        >
+          <option value="Milks">Milks</option>
+          <option value="Drinks">Drinks</option>
+          <option value="Unilab">Unilab</option>
+          <option value="Antibiotics">Antibiotics</option>
+          <option value="Diapers">Diapers</option>
+          <option value="Herbals">Herbals</option>
+          <option value="Coffees">Coffees</option>
+          <option value="Others">Others</option>
+        </select>
+      </div>
+
+      <!-- Quick Month & Year Selector -->
+      <div class="space-y-2 pt-1 border-t adaptive-divider">
+        <label class="block text-xs font-bold adaptive-text-secondary">Expiration Date:</label>
+        <div class="grid grid-cols-2 gap-2">
+          <select
+            id="modalMonthSelect"
+            class="adaptive-input px-3 py-2.5 text-sm font-semibold rounded-2xl focus:border-[#D44D78] outline-none"
+          >
+            <option value="">-- Month --</option>
+            <option value="Jan">January (Jan)</option>
+            <option value="Feb">February (Feb)</option>
+            <option value="Mar">March (Mar)</option>
+            <option value="Apr">April (Apr)</option>
+            <option value="May">May (May)</option>
+            <option value="Jun">June (Jun)</option>
+            <option value="Jul">July (Jul)</option>
+            <option value="Aug">August (Aug)</option>
+            <option value="Sep">September (Sep)</option>
+            <option value="Oct">October (Oct)</option>
+            <option value="Nov">November (Nov)</option>
+            <option value="Dec">December (Dec)</option>
+          </select>
+
+          <select
+            id="modalYearSelect"
+            class="adaptive-input px-3 py-2.5 text-sm font-semibold rounded-2xl focus:border-[#D44D78] outline-none"
+          >
+            <option value="">-- Year --</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+            <option value="2031">2031</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="modalCustomExpiryInput" class="block text-[11px] font-semibold adaptive-text-muted mb-1">
+            Exact expiry text (o i-clear para maging blank):
+          </label>
+          <input
+            id="modalCustomExpiryInput"
+            type="text"
+            placeholder="e.g., Mar 2028 or leave blank"
+            class="adaptive-input w-full px-3.5 py-2.5 text-sm font-bold rounded-2xl focus:border-[#D44D78] outline-none"
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2.5 pt-1">
+        <button
+          id="clearExpiryValueBtn"
+          type="button"
+          class="ios-press py-3 px-3 rounded-2xl adaptive-soft-btn text-xs font-bold"
+        >
+          Clear Date
+        </button>
+        <button
+          id="saveExpiryUpdateBtn"
+          type="button"
+          class="ios-press col-span-2 py-3 px-4 rounded-2xl bg-[#96C92D] text-slate-950 text-sm font-extrabold shadow-md flex items-center justify-center gap-1.5"
+        >
+          <span>Save &amp; Sync to Sheet</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- ONE-HANDED FLOATING BOTTOM SEARCH BAR (ABOVE NAVIGATION DOCK)        -->
+  <!-- =================================================================== -->
+  <div id="floatingBottomSearchDock" aria-label="Quick Product Search">
+    <div class="liquid-glass rounded-[24px] p-1.5">
+      <div class="relative flex items-center">
+        <svg class="w-4 h-4 text-[#D44D78] absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+        </svg>
+        <input
+          id="searchInput"
+          type="search"
+          enterkeyhint="search"
+          autocomplete="off"
+          placeholder="Search gamot para i-edit..."
+          class="adaptive-input w-full pl-10 pr-10 py-2.5 text-sm font-semibold rounded-[18px] focus:border-[#D44D78] outline-none transition"
+        />
+        <button
+          id="clearSearchBtn"
+          type="button"
+          aria-label="Clear search"
+          class="hidden ios-press absolute right-2 adaptive-soft-btn p-1.5 rounded-full"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- iOS 27 LIQUID GLASS FLOATING BOTTOM NAVIGATION DOCK                 -->
+  <!-- =================================================================== -->
+  <nav id="bottomNavDock" aria-label="Bottom Navigation">
+    <div class="liquid-glass rounded-[30px] p-1.5 relative">
+      <div class="grid grid-cols-3 relative">
+        <div id="navGlassPill" class="nav-pill-indicator absolute top-0 bottom-0 left-0 w-1/3 rounded-[24px] pointer-events-none"></div>
+
+        <button
+          type="button"
+          data-tab="edit"
+          class="bottom-nav-btn ios-press relative z-10 py-2 flex flex-col items-center justify-center gap-0.5 adaptive-text-primary font-extrabold"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+          <span class="text-[10px] tracking-tight">Edit Hub</span>
+        </button>
+
+        <button
+          type="button"
+          data-tab="add"
+          class="bottom-nav-btn ios-press relative z-10 py-2 flex flex-col items-center justify-center gap-0.5 adaptive-text-muted font-medium"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          <span class="text-[10px] tracking-tight">Add Item</span>
+        </button>
+
+        <button
+          type="button"
+          data-tab="setup"
+          class="bottom-nav-btn ios-press relative z-10 py-2 flex flex-col items-center justify-center gap-0.5 adaptive-text-muted font-medium"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span class="text-[10px] tracking-tight">Sheet Sync</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const GOOGLE_SHEET_ID = "1fAkEzO0ydvo--mvtQ6CkReCnE6zUrePSHm1hJH7uVGw";
+      const PUBLIC_GVIZ_CSV_URL = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent("MAIN SHEET")}`;
+
+      const STORAGE_KEYS = {
+        ITEMS: "pharmassentials_expiry_items_v3",
+        SCRIPT_URL: "pharmassentials_expiry_script_url_v3",
+        LAST_SYNC: "pharmassentials_expiry_last_sync_v3",
+      };
+
+      const state = {
+        items: loadStorage(STORAGE_KEYS.ITEMS, []),
+        scriptUrl: loadStorage(STORAGE_KEYS.SCRIPT_URL, ""),
+        lastSync: loadStorage(STORAGE_KEYS.LAST_SYNC, ""),
+        searchQuery: "",
+        statusFilter: "ALL",
+        categoryFilter: "ALL",
+        browseAllMode: false,
+        renderLimit: 45,
+        editingItem: null,
+        isSyncing: false,
+      };
+      let searchDebounceTimer = null;
+
+      const els = {
+        themeColorMeta: document.getElementById("themeColorMeta"),
+        floatingBottomSearchDock: document.getElementById("floatingBottomSearchDock"),
+        syncRefreshBtn: document.getElementById("syncRefreshBtn"),
+        syncIcon: document.getElementById("syncIcon"),
+        syncStatusDot: document.getElementById("syncStatusDot"),
+        syncStatusText: document.getElementById("syncStatusText"),
+        setupReminderBanner: document.getElementById("setupReminderBanner"),
+        goToSetupBannerBtn: document.getElementById("goToSetupBannerBtn"),
+        spotlightSearchWrapper: document.getElementById("spotlightSearchWrapper"),
+        totalCatalogPill: document.getElementById("totalCatalogPill"),
+        searchInput: document.getElementById("searchInput"),
+        clearSearchBtn: document.getElementById("clearSearchBtn"),
+        toggleBrowseAllBtn: document.getElementById("toggleBrowseAllBtn"),
+        toggleBrowseIcon: document.getElementById("toggleBrowseIcon"),
+        toggleBrowseText: document.getElementById("toggleBrowseText"),
+        quickBlankExpiryBtn: document.getElementById("quickBlankExpiryBtn"),
+        browseFiltersDrawer: document.getElementById("browseFiltersDrawer"),
+        resultsContainerWrapper: document.getElementById("resultsContainerWrapper"),
+        collapseListBtn: document.getElementById("collapseListBtn"),
+        categoryPills: document.getElementById("categoryPills"),
+        listCountText: document.getElementById("listCountText"),
+        itemsListContainer: document.getElementById("itemsListContainer"),
+        addNewProductForm: document.getElementById("addNewProductForm"),
+        newProdName: document.getElementById("newProdName"),
+        newProdCategory: document.getElementById("newProdCategory"),
+        newProdMonth: document.getElementById("newProdMonth"),
+        newProdYear: document.getElementById("newProdYear"),
+        newProdCustomExpiry: document.getElementById("newProdCustomExpiry"),
+        submitNewProdBtn: document.getElementById("submitNewProdBtn"),
+        scriptUrlInput: document.getElementById("scriptUrlInput"),
+        saveScriptUrlBtn: document.getElementById("saveScriptUrlBtn"),
+        copyScriptCodeBtn: document.getElementById("copyScriptCodeBtn"),
+        appsScriptSource: document.getElementById("appsScriptSource"),
+        editExpiryModal: document.getElementById("editExpiryModal"),
+        modalProductNameInput: document.getElementById("modalProductNameInput"),
+        modalCategorySelect: document.getElementById("modalCategorySelect"),
+        modalCurrentExpiry: document.getElementById("modalCurrentExpiry"),
+        modalMonthSelect: document.getElementById("modalMonthSelect"),
+        modalYearSelect: document.getElementById("modalYearSelect"),
+        modalCustomExpiryInput: document.getElementById("modalCustomExpiryInput"),
+        closeModalBtn: document.getElementById("closeModalBtn"),
+        clearExpiryValueBtn: document.getElementById("clearExpiryValueBtn"),
+        saveExpiryUpdateBtn: document.getElementById("saveExpiryUpdateBtn"),
+        navGlassPill: document.getElementById("navGlassPill"),
+        toastContainer: document.getElementById("toastContainer"),
+        views: {
+          edit: document.getElementById("viewEditExpiry"),
+          add: document.getElementById("viewAddProduct"),
+          setup: document.getElementById("viewSetup"),
+        },
+      };
+
+      function loadStorage(key, fallback) {
+        try {
+          const val = localStorage.getItem(key);
+          return val ? JSON.parse(val) : fallback;
+        } catch (e) {
+          return fallback;
+        }
+      }
+
+      function saveStorage(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {}
+      }
+
+      function escapeHtml(str) {
+        return String(str ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      // Sync <meta name="theme-color"> with device light/dark mode automatically
+      function syncDeviceThemeMeta() {
+        const isDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (els.themeColorMeta) {
+          els.themeColorMeta.setAttribute("content", isDark ? "#0a0c12" : "#f4f1f7");
+        }
+      }
+
+      function showToast(message, type = "success") {
+        const toast = document.createElement("div");
+        const dotColor = type === "error" ? "bg-rose-400" : type === "info" ? "bg-sky-400" : "bg-[#96C92D]";
+        toast.className =
+          "pointer-events-auto px-4 py-2.5 rounded-full bg-slate-900/90 backdrop-blur-xl text-white shadow-xl border border-white/15 text-xs font-semibold flex items-center gap-2 transition-all duration-300";
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(-10px) scale(0.95)";
+        toast.innerHTML = `<span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span><span class="truncate">${escapeHtml(message)}</span>`;
+        els.toastContainer.appendChild(toast);
+
+        requestAnimationFrame(() => {
+          toast.style.opacity = "1";
+          toast.style.transform = "translateY(0) scale(1)";
+        });
+
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          toast.style.transform = "translateY(-8px) scale(0.95)";
+          setTimeout(() => toast.remove(), 250);
+        }, 2600);
+      }
+
+      function switchTab(tabName) {
+        const order = ["edit", "add", "setup"];
+        const idx = order.indexOf(tabName);
+        if (idx === -1) return;
+
+        els.navGlassPill.style.transform = `translateX(${idx * 100}%)`;
+
+        if (els.floatingBottomSearchDock) {
+          els.floatingBottomSearchDock.classList.toggle("hidden", tabName !== "edit");
+        }
+
+        document.querySelectorAll(".bottom-nav-btn").forEach((btn) => {
+          const active = btn.getAttribute("data-tab") === tabName;
+          btn.className = active
+            ? "bottom-nav-btn ios-press relative z-10 py-2 flex flex-col items-center justify-center gap-0.5 adaptive-text-primary font-extrabold"
+            : "bottom-nav-btn ios-press relative z-10 py-2 flex flex-col items-center justify-center gap-0.5 adaptive-text-muted font-medium";
+        });
+
+        Object.keys(els.views).forEach((key) => {
+          const panel = els.views[key];
+          if (key === tabName) {
+            panel.classList.remove("hidden-view", "entering");
+            void panel.offsetWidth;
+            panel.classList.add("entering");
+          } else {
+            panel.classList.add("hidden-view");
+            panel.classList.remove("entering");
+          }
+        });
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function parseCsvRow(line) {
+        const result = [];
+        let current = "";
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === '"') {
+            if (inQuotes && line[i + 1] === '"') {
+              current += '"';
+              i++;
+            } else {
+              inQuotes = !inQuotes;
+            }
+          } else if (ch === "," && !inQuotes) {
+            result.push(current.trim());
+            current = "";
+          } else {
+            current += ch;
+          }
+        }
+        result.push(current.trim());
+        return result;
+      }
+
+      function rebuildSearchIndex() {
+        for (let i = 0; i < state.items.length; i++) {
+          const it = state.items[i];
+          it._idx = i;
+          it._searchBlob = `${it.name || ""} ${it.category || ""} ${it.expiry || ""}`.toLowerCase();
+        }
+      }
+
+      async function syncItemsFromSheet(silent = false) {
+        if (state.isSyncing) return;
+        state.isSyncing = true;
+
+        els.syncRefreshBtn.disabled = true;
+        els.syncIcon.classList.add("animate-spin");
+        els.syncStatusDot.className = "w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shrink-0";
+        els.syncStatusText.textContent = "Syncing MAIN SHEET...";
+
+        try {
+          let loaded = [];
+
+          if (state.scriptUrl) {
+            const resp = await fetch(state.scriptUrl, { method: "GET" });
+            if (resp.ok) {
+              const json = await resp.json();
+              if (json && Array.isArray(json.items)) {
+                loaded = json.items;
+              }
+            }
+          }
+
+          if (loaded.length === 0) {
+            const csvResp = await fetch(PUBLIC_GVIZ_CSV_URL);
+            if (!csvResp.ok) throw new Error("Failed to load sheet");
+            const csvText = await csvResp.text();
+            const lines = csvText.split(/\r?\n/).filter((l) => l.trim().length > 0);
+            for (let r = 3; r < lines.length; r++) {
+              const cols = parseCsvRow(lines[r]);
+              const cat = cols[8] ? cols[8].trim() : "Others";
+              const name = cols[9] ? cols[9].trim() : "";
+              const exp = cols[10] ? cols[10].trim() : "";
+              if (name && name.toUpperCase() !== "NAME") {
+                loaded.push({
+                  row: r + 1,
+                  category: cat || "Others",
+                  name: name,
+                  expiry: exp,
+                });
+              }
+            }
+          }
+
+          state.items = loaded;
+          rebuildSearchIndex();
+          const nowTime = new Date().toLocaleTimeString("en-PH", { hour: "2-digit", minute: "2-digit" });
+          state.lastSync = nowTime;
+          saveStorage(STORAGE_KEYS.ITEMS, state.items);
+          saveStorage(STORAGE_KEYS.LAST_SYNC, nowTime);
+
+          els.syncStatusDot.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0";
+          els.syncStatusText.textContent = `${state.items.length} products • Synced ${nowTime}`;
+          els.totalCatalogPill.textContent = `${state.items.length} items`;
+
+          renderCategoryPills();
+          renderItemsList();
+
+          if (!silent) showToast(`Synced ${state.items.length} products!`, "success");
+        } catch (err) {
+          els.syncStatusDot.className = "w-1.5 h-1.5 rounded-full bg-rose-400 shrink-0";
+          els.syncStatusText.textContent = "Offline / Check connection";
+          if (!silent) showToast("Sync failed — check internet or Web App URL.", "error");
+        } finally {
+          state.isSyncing = false;
+          els.syncRefreshBtn.disabled = false;
+          els.syncIcon.classList.remove("animate-spin");
+        }
+      }
+
+      function renderCategoryPills() {
+        const set = new Set(["ALL"]);
+        state.items.forEach((it) => {
+          if (it.category && it.category.trim()) set.add(it.category.trim());
+        });
+
+        const categories = Array.from(set);
+        if (!categories.includes(state.categoryFilter)) state.categoryFilter = "ALL";
+
+        els.categoryPills.innerHTML = categories
+          .map((cat) => {
+            const active = state.categoryFilter === cat;
+            return `
+              <button
+                type="button"
+                data-cat="${escapeHtml(cat)}"
+                class="cat-pill ios-press px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap transition ${
+                  active
+                    ? "bg-[#D44D78] text-white shadow-xs"
+                    : "adaptive-soft-btn"
+                }"
+              >
+                ${escapeHtml(cat === "ALL" ? "All Categories" : cat)}
+              </button>
+            `;
+          })
+          .join("");
+
+        els.categoryPills.querySelectorAll(".cat-pill").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            state.categoryFilter = btn.getAttribute("data-cat");
+            state.renderLimit = 45;
+            renderCategoryPills();
+            renderItemsList();
+          });
+        });
+      }
+
+      function getFilteredItems() {
+        const q = state.searchQuery.trim().toLowerCase();
+        const statusFilter = state.statusFilter;
+        const categoryFilter = state.categoryFilter;
+        const result = [];
+
+        for (let i = 0; i < state.items.length; i++) {
+          const item = state.items[i];
+          const hasExp = Boolean(item.expiry && item.expiry.trim() !== "");
+
+          if (statusFilter === "NO_EXPIRY" && hasExp) continue;
+          if (statusFilter === "HAS_EXPIRY" && !hasExp) continue;
+          if (categoryFilter !== "ALL" && (item.category || "Others") !== categoryFilter) continue;
+          if (q && !(item._searchBlob || "").includes(q)) continue;
+
+          result.push(item);
+        }
+        return result;
+      }
+
+      // Controls Minimalist Home State vs Expanded Product Results
+      function updateHomeLayoutState() {
+        const hasSearch = state.searchQuery.trim().length > 0;
+        const shouldShowResults = hasSearch || state.browseAllMode;
+
+        if (shouldShowResults) {
+          els.spotlightSearchWrapper.classList.remove("my-auto", "pt-4", "pb-2");
+          els.resultsContainerWrapper.classList.remove("hidden");
+          els.browseFiltersDrawer.classList.remove("hidden");
+          els.toggleBrowseText.textContent = "Hide Products List";
+          els.toggleBrowseIcon.style.transform = "rotate(90deg)";
+        } else {
+          els.spotlightSearchWrapper.classList.add("my-auto", "pt-4", "pb-2");
+          els.resultsContainerWrapper.classList.add("hidden");
+          els.browseFiltersDrawer.classList.add("hidden");
+          els.toggleBrowseText.textContent = "Show All Products List";
+          els.toggleBrowseIcon.style.transform = "rotate(0deg)";
+        }
+      }
+
+      function renderItemsList() {
+        updateHomeLayoutState();
+
+        const hasSearch = state.searchQuery.trim().length > 0;
+        if (!hasSearch && !state.browseAllMode) {
+          els.itemsListContainer.innerHTML = "";
+          return;
+        }
+
+        const filtered = getFilteredItems();
+        const visibleItems = filtered.slice(0, state.renderLimit);
+
+        els.listCountText.textContent =
+          filtered.length > visibleItems.length
+            ? `Showing ${visibleItems.length} of ${filtered.length} product(s)`
+            : `${filtered.length} product(s) found`;
+
+        if (filtered.length === 0) {
+          els.itemsListContainer.innerHTML = `
+            <div class="product-card-fast rounded-3xl p-7 text-center space-y-2">
+              <p class="text-sm font-bold adaptive-text-primary">Walang nahanap na gamot</p>
+              <p class="text-xs adaptive-text-muted">Pumunta sa <strong>Add Item</strong> tab sa ibaba kung bagong produkto ito.</p>
+            </div>
+          `;
+          return;
+        }
+
+        const cardsHtml = visibleItems
+          .map((item) => {
+            const hasExpiry = Boolean(item.expiry && item.expiry.trim() !== "");
+            return `
+              <div class="product-card-fast rounded-3xl p-3.5 flex items-center justify-between gap-2.5">
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="px-2 py-0.5 text-[10px] font-extrabold rounded-lg adaptive-soft-btn">
+                      ${escapeHtml(item.category || "Others")}
+                    </span>
+                    ${
+                      hasExpiry
+                        ? `<span class="px-2 py-0.5 text-[10px] font-bold rounded-lg bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25">
+                            Exp: ${escapeHtml(item.expiry)}
+                          </span>`
+                        : `<span class="px-2 py-0.5 text-[10px] font-bold rounded-lg bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/25">
+                            Blank Expiry
+                          </span>`
+                    }
+                  </div>
+                  <h3 class="text-sm font-bold adaptive-text-primary mt-1 leading-snug break-words">
+                    ${escapeHtml(item.name)}
+                  </h3>
+                </div>
+
+                <button
+                  type="button"
+                  data-idx="${item._idx}"
+                  class="open-edit-modal-btn ios-press shrink-0 px-3.5 py-2.5 rounded-2xl ${
+                    hasExpiry ? "bg-slate-900 text-white dark:bg-white dark:text-slate-950" : "bg-[#D44D78] text-white"
+                  } text-xs font-bold flex items-center gap-1.5 shadow-xs"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                  <span>Edit</span>
+                </button>
+              </div>
+            `;
+          })
+          .join("");
+
+        const loadMoreHtml =
+          filtered.length > visibleItems.length
+            ? `<button
+                type="button"
+                id="loadMoreResultsBtn"
+                class="ios-press w-full py-3 rounded-2xl adaptive-soft-btn text-xs font-extrabold text-center"
+              >
+                Load More (${filtered.length - visibleItems.length} remaining)
+              </button>`
+            : "";
+
+        els.itemsListContainer.innerHTML = cardsHtml + loadMoreHtml;
+      }
+
+      function openEditModal(item) {
+        state.editingItem = item;
+        els.modalProductNameInput.value = item.name || "";
+
+        const matchedOption = Array.from(els.modalCategorySelect.options).find(
+          (opt) => opt.value.toLowerCase() === (item.category || "Others").toLowerCase()
+        );
+        els.modalCategorySelect.value = matchedOption ? matchedOption.value : "Others";
+
+        els.modalCurrentExpiry.textContent = item.expiry
+          ? `Current Expiry: ${item.expiry}`
+          : "Current Expiry: Blank (Wala pang date)";
+
+        els.modalMonthSelect.value = "";
+        els.modalYearSelect.value = "";
+        els.modalCustomExpiryInput.value = item.expiry || "";
+
+        els.editExpiryModal.classList.remove("hidden");
+      }
+
+      function closeEditModal() {
+        els.editExpiryModal.classList.add("hidden");
+        state.editingItem = null;
+      }
+
+      async function saveEditedExpiry() {
+        if (!state.editingItem) return;
+
+        if (!state.scriptUrl) {
+          showToast("I-save muna ang Apps Script URL sa Sheet Sync tab.", "error");
+          closeEditModal();
+          switchTab("setup");
+          return;
+        }
+
+        const updatedName = els.modalProductNameInput.value.trim();
+        if (!updatedName) {
+          showToast("Hindi pwedeng blanko ang pangalan ng produkto.", "error");
+          return;
+        }
+
+        const updatedCategory = els.modalCategorySelect.value;
+        const newExpiry = els.modalCustomExpiryInput.value.trim();
+        const targetItem = state.editingItem;
+        const originalName = targetItem.name;
+
+        els.saveExpiryUpdateBtn.disabled = true;
+        els.saveExpiryUpdateBtn.textContent = "Syncing...";
+
+        try {
+          await fetch(state.scriptUrl, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "updateProduct",
+              row: targetItem.row,
+              originalName: originalName,
+              name: updatedName,
+              category: updatedCategory,
+              expiry: newExpiry,
+            }),
+          });
+
+          targetItem.name = updatedName;
+          targetItem.category = updatedCategory;
+          targetItem.expiry = newExpiry;
+          rebuildSearchIndex();
+          saveStorage(STORAGE_KEYS.ITEMS, state.items);
+          renderCategoryPills();
+          renderItemsList();
+          closeEditModal();
+          showToast(`Saved & synced: ${updatedName}`, "success");
+        } catch (err) {
+          showToast("Failed to sync changes to Google Sheet.", "error");
+        } finally {
+          els.saveExpiryUpdateBtn.disabled = false;
+          els.saveExpiryUpdateBtn.textContent = "Save & Sync to Sheet";
+        }
+      }
+
+      function copyToClipboard(text, successMsg) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => showToast(successMsg))
+            .catch(() => fallbackCopy(text, successMsg));
+        } else {
+          fallbackCopy(text, successMsg);
+        }
+      }
+
+      function fallbackCopy(text, successMsg) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          showToast(successMsg);
+        } catch (e) {
+          showToast("Copy failed", "error");
+        } finally {
+          document.body.removeChild(ta);
+        }
+      }
+
+      function bindEvents() {
+        // Listen for automatic system light/dark mode switch
+        if (window.matchMedia) {
+          window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", syncDeviceThemeMeta);
+        }
+
+        // Bottom Navigation
+        document.querySelectorAll(".bottom-nav-btn").forEach((btn) => {
+          btn.addEventListener("click", () => switchTab(btn.getAttribute("data-tab")));
+        });
+
+        els.goToSetupBannerBtn.addEventListener("click", () => switchTab("setup"));
+        els.syncRefreshBtn.addEventListener("click", () => syncItemsFromSheet(false));
+
+        // Single delegated click listener on itemsListContainer for maximum scroll/tap performance
+        els.itemsListContainer.addEventListener("click", (e) => {
+          const editBtn = e.target.closest(".open-edit-modal-btn");
+          if (editBtn) {
+            const idx = parseInt(editBtn.getAttribute("data-idx"), 10);
+            if (!Number.isNaN(idx) && state.items[idx]) {
+              openEditModal(state.items[idx]);
+            }
+            return;
+          }
+
+          if (e.target.closest("#loadMoreResultsBtn")) {
+            state.renderLimit += 50;
+            renderItemsList();
+          }
+        });
+
+        // Smooth debounced search input
+        els.searchInput.addEventListener("input", (e) => {
+          const val = e.target.value;
+          els.clearSearchBtn.classList.toggle("hidden", !val);
+          clearTimeout(searchDebounceTimer);
+          searchDebounceTimer = setTimeout(() => {
+            state.searchQuery = val;
+            state.renderLimit = 45;
+            window.requestAnimationFrame(renderItemsList);
+          }, 85);
+        });
+
+        // Dismiss mobile keyboard immediately when Enter / Search is pressed
+        els.searchInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            clearTimeout(searchDebounceTimer);
+            state.searchQuery = els.searchInput.value;
+            state.renderLimit = 45;
+            renderItemsList();
+            els.searchInput.blur();
+          }
+        });
+
+        els.clearSearchBtn.addEventListener("click", () => {
+          clearTimeout(searchDebounceTimer);
+          state.searchQuery = "";
+          state.renderLimit = 45;
+          els.searchInput.value = "";
+          els.clearSearchBtn.classList.add("hidden");
+          renderItemsList();
+        });
+
+        // Toggle Show / Hide Full Products List
+        els.toggleBrowseAllBtn.addEventListener("click", () => {
+          state.browseAllMode = !state.browseAllMode;
+          state.renderLimit = 45;
+          if (!state.browseAllMode) {
+            state.statusFilter = "ALL";
+            state.categoryFilter = "ALL";
+          }
+          renderItemsList();
+        });
+
+        // Quick Shortcut: Show Blank Expiry Products immediately
+        els.quickBlankExpiryBtn.addEventListener("click", () => {
+          state.browseAllMode = true;
+          state.statusFilter = "NO_EXPIRY";
+          state.renderLimit = 45;
+          document.querySelectorAll(".status-filter-btn").forEach((b) => {
+            const active = b.getAttribute("data-filter") === "NO_EXPIRY";
+            b.className = active
+              ? "status-filter-btn ios-press px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+              : "status-filter-btn ios-press px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap adaptive-soft-btn";
+          });
+          renderItemsList();
+        });
+
+        // Collapse List back to Minimalist Search View
+        els.collapseListBtn.addEventListener("click", () => {
+          state.browseAllMode = false;
+          state.searchQuery = "";
+          state.renderLimit = 45;
+          els.searchInput.value = "";
+          els.clearSearchBtn.classList.add("hidden");
+          renderItemsList();
+        });
+
+        // Status filter buttons inside browse drawer
+        document.querySelectorAll(".status-filter-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            state.statusFilter = btn.getAttribute("data-filter");
+            state.renderLimit = 45;
+            document.querySelectorAll(".status-filter-btn").forEach((b) => {
+              const active = b === btn;
+              b.className = active
+                ? "status-filter-btn ios-press px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+                : "status-filter-btn ios-press px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap adaptive-soft-btn";
+            });
+            renderItemsList();
+          });
+        });
+
+        // Edit modal dropdown sync
+        const syncModalDropdowns = () => {
+          const m = els.modalMonthSelect.value;
+          const y = els.modalYearSelect.value;
+          if (m && y) els.modalCustomExpiryInput.value = `${m} ${y}`;
+          else if (y) els.modalCustomExpiryInput.value = y;
+          else if (m) els.modalCustomExpiryInput.value = m;
+        };
+        els.modalMonthSelect.addEventListener("change", syncModalDropdowns);
+        els.modalYearSelect.addEventListener("change", syncModalDropdowns);
+
+        els.clearExpiryValueBtn.addEventListener("click", () => {
+          els.modalMonthSelect.value = "";
+          els.modalYearSelect.value = "";
+          els.modalCustomExpiryInput.value = "";
+        });
+
+        els.closeModalBtn.addEventListener("click", closeEditModal);
+        els.editExpiryModal.addEventListener("click", (e) => {
+          if (e.target === els.editExpiryModal) {
+            closeEditModal();
+          }
+        });
+        els.saveExpiryUpdateBtn.addEventListener("click", saveEditedExpiry);
+
+        // Add new product form dropdown sync
+        const syncNewProdDropdowns = () => {
+          const m = els.newProdMonth.value;
+          const y = els.newProdYear.value;
+          if (m && y) els.newProdCustomExpiry.value = `${m} ${y}`;
+          else if (y) els.newProdCustomExpiry.value = y;
+          else if (m) els.newProdCustomExpiry.value = m;
+        };
+        els.newProdMonth.addEventListener("change", syncNewProdDropdowns);
+        els.newProdYear.addEventListener("change", syncNewProdDropdowns);
+
+        // Add New Product Submit
+        els.addNewProductForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = els.newProdName.value.trim();
+          const category = els.newProdCategory.value;
+          const expiry = els.newProdCustomExpiry.value.trim();
+
+          if (!name) return;
+
+          if (!state.scriptUrl) {
+            showToast("I-save muna ang Apps Script URL sa Sheet Sync tab.", "error");
+            switchTab("setup");
+            return;
+          }
+
+          els.submitNewProdBtn.disabled = true;
+          els.submitNewProdBtn.textContent = "Adding to Google Sheet...";
+
+          try {
+            await fetch(state.scriptUrl, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                action: "addProduct",
+                name: name,
+                category: category,
+                expiry: expiry,
+              }),
+            });
+
+            state.items.unshift({
+              row: state.items.length + 4,
+              category: category,
+              name: name,
+              expiry: expiry,
+            });
+            rebuildSearchIndex();
+            saveStorage(STORAGE_KEYS.ITEMS, state.items);
+            els.totalCatalogPill.textContent = `${state.items.length} items`;
+
+            els.addNewProductForm.reset();
+            els.newProdCategory.value = "Others";
+            renderCategoryPills();
+            renderItemsList();
+            showToast(`Added "${name}" to Google Sheet!`, "success");
+            switchTab("edit");
+          } catch (err) {
+            showToast("Failed to add product to Google Sheet.", "error");
+          } finally {
+            els.submitNewProdBtn.disabled = false;
+            els.submitNewProdBtn.textContent = "Add Product & Sync to Google Sheet";
+          }
+        });
+
+        // Setup save & copy
+        els.saveScriptUrlBtn.addEventListener("click", () => {
+          const url = els.scriptUrlInput.value.trim();
+          state.scriptUrl = url;
+          saveStorage(STORAGE_KEYS.SCRIPT_URL, url);
+          els.setupReminderBanner.classList.toggle("hidden", Boolean(url));
+          showToast("Apps Script URL saved!");
+          syncItemsFromSheet(false);
+        });
+
+        els.copyScriptCodeBtn.addEventListener("click", () => {
+          copyToClipboard(els.appsScriptSource.textContent, "Apps Script copied!");
+        });
+      }
+
+      function init() {
+        syncDeviceThemeMeta();
+        rebuildSearchIndex();
+        els.scriptUrlInput.value = state.scriptUrl || "";
+        els.setupReminderBanner.classList.toggle("hidden", Boolean(state.scriptUrl));
+        els.totalCatalogPill.textContent = `${state.items.length} items`;
+        if (state.items.length > 0) {
+          els.syncStatusText.textContent = state.lastSync
+            ? `${state.items.length} products • Synced ${state.lastSync}`
+            : `${state.items.length} products loaded`;
+        }
+
+        renderCategoryPills();
+        renderItemsList();
+        bindEvents();
+        switchTab("edit");
+
+        syncItemsFromSheet(true);
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>
